@@ -1,0 +1,200 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Toulouse 1830</title>
+  <meta charset="utf-8" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" />
+
+  <link href='http://fonts.googleapis.com/css?family=Diplomata+SC' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Jacques+Francois' rel='stylesheet' type='text/css'>
+<script src="http://use.edgefonts.net/linden-hill;tangerine.js"></script>
+
+  <!--[if lte IE 8]>
+      <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.3/leaflet.ie.css" />
+  <![endif]-->
+
+  <style>
+    * {box-sizing: border-box;}
+
+    html, body {
+      height: 100%;
+      font-family: 'Georgia', sans-serif;
+      margin: 0;
+      background-color: #ead3ae;
+    }
+
+    body {
+      width: 100%;
+      padding: 2%;
+    }
+
+    #frame1 {
+      width: 100%;
+      height: 100%;
+      border:2px solid #33322A;
+      padding: 0.2%;
+    }
+
+    #frame2 {
+      width: 100%;
+      height: 100%;
+      border:1px solid #33322A;
+      padding: 0.1%;
+    }
+
+    #frame3 {
+      width: 100%;
+      height: 100%;
+      border:1px solid #33322A;
+      padding: 1.5%;
+    }
+
+    #frame4 {
+      width: 100%;
+      height: 100%;
+      border:1px solid #33322A;
+      position: relative;
+    }
+
+    #floatingFrame {
+      width: 20%;
+      height: 20%;
+      background-color: #ead3ae;
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 1;
+    }
+
+    #map {
+      width: 100%;
+      height: 100%;
+    }
+
+    .modalDialog {
+      position: absolute;
+      font-family: tangerine, sans-serif;
+      font-size:18px;
+      width: 100%;
+      height: 100%;
+      right: 0;
+      bottom: 100%;
+      left: 0;
+      background: rgba(0,0,0,0.8);
+      z-index: 99999;
+      opacity:0;
+      -webkit-transition: opacity 400ms ease-in;
+      -moz-transition: opacity 400ms ease-in;
+      transition: opacity 400ms ease-in;
+    }
+
+    .modalDialog:target {
+      opacity: 1;
+      bottom: 0;
+    }
+
+    .modalDialog > div {
+      width: 400px;
+      position: relative;
+      margin: 10% auto;
+      padding: 5px 20px 13px 20px;
+      border-radius: 10px;
+      background: #ead3ae;
+      max-height: 90%;
+      overflow-y: auto;
+      -webkit-transform: translateY(-50%);
+      margin: 0 auto;
+      top: 50%;
+      overflow-x: visible;
+    }
+
+    .close {
+      background: #606061;
+      color: #FFFFFF;
+      line-height: 25px;
+      position: absolute;
+      right: 5px;
+      text-align: center;
+      top: 5px;
+      width: 24px;
+      text-decoration: none;
+      font-weight: bold;
+      -webkit-border-radius: 12px;
+      -moz-border-radius: 12px;
+      border-radius: 12px;
+      -moz-box-shadow: 1px 1px 3px #000;
+      -webkit-box-shadow: 1px 1px 3px #000;
+      box-shadow: 1px 1px 3px #000;
+    }
+
+    .close:hover { background: #e95642; }
+  </style>
+</head>
+<body>
+  <div id="frame1">
+    <div id="frame2">
+      <div id="frame3">
+        <div id="frame4">
+          <div id="floatingFrame">
+            <p style="text-align: center; margin-top:5px;">
+              <span style="font-family: linden-hill, sans-serif; font-size:17px;">PLAN</span><br />
+              <span style="font-family: 'Jacques Francois', serif; font-size:14px;">DE</span><br />
+              <span style="font-family: 'Diplomata SC', cursive; font-size:17px;">Toulouse</span><br /><br />
+              <span style="font-family: tangerine, sans-serif; font-size:20px;">Tel que la ville était construite en 1830</span><br />
+            </p>
+          </div>
+          <div id="map">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <span style="font-family: tangerine, sans-serif; font-size:20px;">Par <a href="http://makina-corpus.com/">Makina Corpus</a></span>
+  <span style="font-family: tangerine, sans-serif; font-size:20px; float: right; text-align: right;"><a href="#openModal">Mentions légales</a></span>
+
+  <div id="openModal" class="modalDialog">
+    <div>
+      <a href="#close" title="Close" class="close">X</a>
+      <h2>Attribution</h2>
+      <p>Données géographiques : <a href="http://data.grandtoulouse.fr/web/guest/les-donnees/-/opendata/card/12534-parcellaire-de-1830"> Open data Toulouse Métropole</a></p>
+      <p>Icônes :
+        <ul>
+          <li><a href="http://thenounproject.com/noun/cheese/#icon-No590" target="_blank">Cheese</a>  from The Noun Project</li>
+          <li><a href="http://thenounproject.com/noun/gun/#icon-No1823" target="_blank">Gun</a> designed by <a href="http://thenounproject.com/Simon Child" target="_blank">Simon Child</a> from The Noun Project</li>
+          <li><a href="http://thenounproject.com/noun/coin/#icon-No20456" target="_blank">Coin</a> designed by <a href="http://thenounproject.com/henryryder" target="_blank">Henry Ryder</a> from The Noun Project</li>
+          <li><a href="http://thenounproject.com/noun/barber-shop/#icon-No13410" target="_blank">Barber Shop</a> designed by <a href="http://thenounproject.com/alylysh" target="_blank">alylysh</a> from The Noun Project</li>
+          <li><a href="http://thenounproject.com/noun/ring/#icon-No4437" target="_blank">Ring</a> designed by <a href="http://thenounproject.com/Belcebu" target="_blank">DonBLC 123</a> from The Noun Project</li>
+          <li><a href="http://thenounproject.com/noun/meat/#icon-No23422" target="_blank">Meat</a> designed by <a href="http://thenounproject.com/christopherjs" target="_blank">Christopher Scott</a> from The Noun Project</li>
+          <li><a href="http://thenounproject.com/noun/saw/#icon-No1287" target="_blank">Saw</a> designed by <a href="http://thenounproject.com/john.brueggemann" target="_blank">John Brüggemann</a> from The Noun Project</li>
+          <li><a href="http://thenounproject.com/noun/needle-and-thread/#icon-No17518" target="_blank">Needle and Thread</a> designed by <a href="http://thenounproject.com/Guvnor" target="_blank">Guvnor Co</a> from The Noun Project</li>
+          <li><a href="http://thenounproject.com/noun/jar/#icon-No3520" target="_blank">Jar</a> designed by <a href="http://thenounproject.com/giulio.bertolotti" target="_blank">Giulio Bertolotti</a> from The Noun Project</li>
+          <li><a href="http://thenounproject.com/noun/paint-brush/#icon-No4015" target="_blank">Paint Brush</a> designed by <a href="http://thenounproject.com/nilsbyte" target="_blank">Nils</a> from The Noun Project</li>
+          <li><a href="http://thenounproject.com/noun/shirt/#icon-No3312" target="_blank">Shirt</a> designed by <a href="http://thenounproject.com/fusillomaurizio" target="_blank">Maurizio Fusillo</a> from The Noun Project</li>
+          <li><a href="http://thenounproject.com/noun/key/#icon-No4010" target="_blank">Key</a> designed by <a href="http://thenounproject.com/indur" target="_blank">Bucky Clarke</a> from The Noun Project</li>
+          <li><a href="http://thenounproject.com/noun/anvil/#icon-No3891" target="_blank">Anvil</a> designed by <a href="http://thenounproject.com/podrivo" target="_blank">Pedro Ivo Hudson</a> from The Noun Project</li>
+          <li><a href="http://thenounproject.com/noun/wheelbarrow/#icon-No3704" target="_blank">Wheelbarrow</a> designed by <a href="http://thenounproject.com/Luis" target="_blank">Luis Prado</a> from The Noun Project</li>
+          <li><a href="http://thenounproject.com/noun/candy/#icon-No3258" target="_blank">Candy</a> designed by <a href="http://thenounproject.com/alxhrt" target="_blank">Alex Hartmann</a> from The Noun Project</li>
+          <li><a href="http://thenounproject.com/noun/perfume/#icon-No3175" target="_blank">Perfume</a> designed by <a href="http://thenounproject.com/Patch77" target="_blank">Patrick Brentano</a> from The Noun Project</li>
+          <li><a href="http://thenounproject.com/noun/chair/#icon-No20780" target="_blank">Chair</a> designed by <a href="http://thenounproject.com/franciellycs" target="_blank">Francielly Costantin Senra</a> from The Noun Project</li>
+          <li><a href="http://thenounproject.com/noun/wrench/#icon-No1320" target="_blank">Wrench</a> designed by <a href="http://thenounproject.com/johncaserta" target="_blank">John Caserta</a> from The Noun Project</li>
+        </ul>
+      </p>
+    </div>
+  </div>
+
+  <script src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map = L.map('map', { zoomControl:false, attributionControl:false, maxBounds: [[43.5829,1.4127],[43.6169,1.4616]]});
+    map.setView([43.6, 1.44], 16);
+
+    // Add Base Layer
+    var caueUrl = 'http://{s}.livembtiles.makina-corpus.net/makina/Toulouse1830/{z}/{x}/{y}.png';
+    L.tileLayer(caueUrl, {minZoom: 15, maxZoom: 20, subDomains: 'abcdefgh'}).addTo(map);
+  </script>
+ </body>
+</html>
