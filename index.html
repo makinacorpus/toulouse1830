@@ -18,7 +18,11 @@
   <![endif]-->
 
   <style>
-    * {box-sizing: border-box;}
+    * {
+      box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+    }
 
     html, body {
       height: 100%;
@@ -107,6 +111,9 @@
       max-height: 90%;
       overflow-y: auto;
       -webkit-transform: translateY(-50%);
+      -moz-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+      transform: translateY(-50%);
       margin: 0 auto;
       top: 50%;
       overflow-x: visible;
