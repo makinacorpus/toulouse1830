@@ -77,14 +77,28 @@
       position: relative;
     }
 
-    #floatingFrame {
+    .floatingFrame {
       width: 240px;
       height: 120px;
       background-color: #ead3ae;
+      border-left:1px solid #33322A;
       position: absolute;
+      z-index: 1;
+    }
+
+    #ffTop {
       top: 0;
       right: 0;
-      z-index: 1;
+      border-bottom:1px solid #33322A;
+    }
+
+    #ffBottom {
+      bottom: 0;
+      right: 0;
+      padding: 5px;
+      border-top:1px solid #33322A;
+      font-family: 'Jacques Francois', serif;
+      font-size:14px;
     }
 
     #map {
@@ -160,12 +174,16 @@
     <div id="frame2">
       <div id="frame3">
         <div id="frame4">
-          <div id="floatingFrame">
+          <div class="floatingFrame" id="ffTop">
             <p style="text-align: center; margin-top:5px;">
               <span style="font-family: linden-hill, sans-serif; font-size:17px;">PLAN</span><br />
               <span style="font-family: 'Jacques Francois', serif; font-size:14px;">DE</span><br />
               <span style="font-family: 'Diplomata SC', cursive; font-size:17px;">Toulouse</span><br /><br />
               <span style="font-family: tangerine, sans-serif; font-size:20px;">Tel que la ville était construite en 1830</span><br />
+            </p>
+          </div>
+          <div class="floatingFrame" id="ffBottom">
+            <p style="text-align: center; margin-top:5px;">
             </p>
           </div>
           <div id="map">
@@ -208,6 +226,7 @@
   </div>
 
   <script src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
+  <script src="leaflet.utfgrid.js"></script>
   <script type="text/javascript">
 
     var map = L.map('map', { zoomControl:false, attributionControl:false, maxBounds: [[43.5829,1.4127],[43.6169,1.4616]]});
@@ -216,6 +235,23 @@
     // Add Base Layer
     var tilesUrl = 'http://{s}.livembtiles.makina-corpus.net/makina/toulouse1830/{z}/{x}/{y}.png';
     L.tileLayer(tilesUrl, {minZoom: 15, maxZoom: 20, subDomains: 'abcdefgh'}).addTo(map);
+
+    var utfGrid = new L.UtfGrid('http://{s}.livembtiles.makina-corpus.net/makina/toulouse1830/{z}/{x}/{y}.grid.json?callback={cb}');
+    utfGrid.on('mouseover', function (e) {
+      var content = '';
+      if (e.data) {
+        content = 'Cette parcelle est la propriété de : ' + e.data.Nom_prenom;
+        if (e.data.Fonction != '') {
+          content += ',<br/>dont la profession est ' + e.data.Fonction;
+        }
+      } 
+      document.getElementById('ffBottom').innerHTML = content;
+    });
+    utfGrid.on('mouseout', function (e) { 
+      document.getElementById('ffBottom').innerHTML = '';
+    });
+
+    map.addLayer(utfGrid);
   </script>
  </body>
 </html>
