@@ -236,7 +236,8 @@
     var tilesUrl = 'http://{s}.livembtiles.makina-corpus.net/makina/toulouse1830/{z}/{x}/{y}.png';
     L.tileLayer(tilesUrl, {minZoom: 15, maxZoom: 20, subDomains: 'abcdefgh'}).addTo(map);
 
-    var utfGrid = new L.UtfGrid('http://{s}.livembtiles.makina-corpus.net/makina/toulouse1830/{z}/{x}/{y}.grid.json?callback={cb}');
+    var utfGrid = new L.UtfGrid('http://{s}.livembtiles.makina-corpus.net/makina/toulouse1830/{z}/{x}/{y}.grid.json?callback={cb}', {
+      maxZoom: 20});
     utfGrid.on('mouseover', function (e) {
       var content = '';
       if (e.data) {
