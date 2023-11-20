@@ -222,7 +222,7 @@
   </div>
 
   <script src="https://unpkg.com/leaflet@0.6.4/dist/leaflet.js"></script>
-  <script src="leaflet.utfgrid.js"></script>
+  <!-- <script src="leaflet.utfgrid.js"></script> -->
   <script type="text/javascript">
 
     var map = L.map('map', { zoomControl:false, attributionControl:false, maxBounds: [[43.5829,1.4127],[43.6169,1.4616]]});
@@ -231,6 +231,8 @@
     // Add Base Layer
     var tilesUrl = 'https://{s}.tilestream.makina-corpus.net/v2/toulouse1830/{z}/{x}/{y}.png';
     L.tileLayer(tilesUrl, {minZoom: 15, maxZoom: 20, subDomains: 'abcdefgh'}).addTo(map);
+
+    /* Not working (grid.json files seems to be unavailable anymore)
 
     var utfGrid = new L.UtfGrid('https://{s}.tilestream.makina-corpus.net/v2/toulouse1830/{z}/{x}/{y}.grid.json?callback={cb}', {
       maxZoom: 20});
@@ -247,6 +249,8 @@
     utfGrid.on('mouseout', function (e) { 
       document.getElementById('ffBottom').innerHTML = '';
     });
+
+    */
 
     map.addLayer(utfGrid);
   </script>
