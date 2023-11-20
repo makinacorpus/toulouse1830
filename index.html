@@ -20,7 +20,7 @@
   <meta name="twitter:url" content="https://tolosa.makina-corpus.com" />
 
   <link rel="shortcut icon" type="image/x-icon" href="https://makina-corpus.com/favicon.ico" />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@0.6.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
 
   <link href='https://fonts.googleapis.com/css2?family=Diplomata+SC' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css2?family=Jacques+Francois' rel='stylesheet' type='text/css'>
@@ -220,8 +220,8 @@
       </p>
     </div>
   </div>
-
-  <script src="https://unpkg.com/leaflet@0.6.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/pmtiles@2.5.0/dist/index.js"></script>
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
   <!-- <script src="leaflet.utfgrid.js"></script> -->
   <script type="text/javascript">
 
@@ -229,8 +229,8 @@
     map.setView([43.6, 1.44], 16);
 
     // Add Base Layer
-    var tilesUrl = 'https://{s}.tilestream.makina-corpus.net/v2/toulouse1830/{z}/{x}/{y}.png';
-    L.tileLayer(tilesUrl, {minZoom: 15, maxZoom: 20, subDomains: 'abcdefgh'}).addTo(map);
+    const p = new pmtiles.PMTiles('https://makina-pmtiles.s3-website.fr-par.scw.cloud/tolosa-1830.pmtiles')
+    pmtiles.leafletRasterLayer(p, { minZoom: 15, maxZoom: 20 }).addTo(map)
 
     /* Not working (grid.json files seems to be unavailable anymore)
 
